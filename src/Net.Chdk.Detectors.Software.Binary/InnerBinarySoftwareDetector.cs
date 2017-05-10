@@ -28,22 +28,45 @@ namespace Net.Chdk.Detectors.Software.Binary
         public SoftwareInfo GetSoftware(byte[] buffer, int index)
         {
             var strings = GetStrings(buffer, index, StringCount);
+            if (strings == null)
+                return null;
+
+            var product = GetProduct(strings);
+            if (product == null)
+                return null;
+
+            var camera = GetCamera(strings);
+            if (camera == null)
+                return null;
+
             return new SoftwareInfo
             {
                 Version = Version,
-                Product = GetProduct(strings),
-                Camera = GetCamera(strings),
+                Product = product,
+                Camera = camera,
             };
         }
 
         private SoftwareProductInfo GetProduct(string[] strings)
         {
+            var version = GetVersion(strings);
+            if (version == null)
+                return null;
+
+            var language = GetLanguage(strings);
+            if (language == null)
+                return null;
+
+            var creationDate = GetCreationDate(strings);
+            if (creationDate == null)
+                return null;
+
             return new SoftwareProductInfo
             {
                 Name = Name,
-                Version = GetVersion(strings),
-                Language = GetLanguage(strings),
-                Created = GetCreationDate(strings)
+                Version = version,
+                Language = language,
+                Created = creationDate
             };
         }
 
@@ -61,16 +84,49 @@ namespace Net.Chdk.Detectors.Software.Binary
             for (var i = 0; i < length; i++)
             {
                 int count;
-                for (count = 0; buffer[index + count] != 0; count++) ;
+                for (count = 0; index + count < buffer.Length && buffer[index + count] != 0; count++) ;
+                if (index + count == buffer.Length)
+                    return null;
                 strings[i] = Encoding.ASCII.GetString(buffer, index, count);
                 index += count + 1;
             }
             return strings;
         }
 
+        protected static Version GetVersion(string str)
+        {
+            if (str == null)
+                return null;
+
+            Version version;
+            if (!Version.TryParse(str, out version))
+                return null;
+
+            return version;
+        }
+
         protected static DateTime? GetCreationDate(string str)
         {
-            return DateTime.Parse(str, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
+            if (str == null)
+                return null;
+
+            DateTime creationDate;
+            if (!DateTime.TryParse(str, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out creationDate))
+                return null;
+
+            return creationDate;
+        }
+
+        protected static SoftwareCameraInfo GetCamera(string platform, string revision)
+        {
+            if (platform == null || revision == null)
+                return null;
+
+            return new SoftwareCameraInfo
+            {
+                Platform = platform,
+                Revision = revision
+            };
         }
 
         protected abstract string Name { get; }
