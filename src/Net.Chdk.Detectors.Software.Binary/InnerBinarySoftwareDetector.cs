@@ -1,4 +1,5 @@
 ﻿using Net.Chdk.Model.Software;
+using Net.Chdk.Providers.Software;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -11,8 +12,12 @@ namespace Net.Chdk.Detectors.Software.Binary
     {
         private static Version Version => new Version("1.0");
 
-        protected InnerBinarySoftwareDetector()
+        private ISourceProvider SourceProvider { get; }
+
+        protected InnerBinarySoftwareDetector(ISourceProvider sourceProvider)
         {
+            SourceProvider = sourceProvider;
+
             bytes = new Lazy<IEnumerable<byte[]>>(GetBytes);
         }
 
@@ -39,17 +44,22 @@ namespace Net.Chdk.Detectors.Software.Binary
             if (camera == null)
                 return null;
 
+            var source = GetSource(strings);
+            if (source == null)
+                return null;
+
             return new SoftwareInfo
             {
                 Version = Version,
                 Product = product,
                 Camera = camera,
+                Source = source,
             };
         }
 
         private SoftwareProductInfo GetProduct(string[] strings)
         {
-            var version = GetVersion(strings);
+            var version = GetProductVersion(strings);
             if (version == null)
                 return null;
 
@@ -63,11 +73,18 @@ namespace Net.Chdk.Detectors.Software.Binary
 
             return new SoftwareProductInfo
             {
-                Name = Name,
+                Name = ProductName,
                 Version = version,
                 Language = language,
                 Created = creationDate
             };
+        }
+
+        private SoftwareSourceInfo GetSource(string[] strings)
+        {
+            var sourceName = GetSourceName(strings);
+            var channelName = GetSourceChannel(strings);
+            return SourceProvider.GetSource(ProductName, sourceName, channelName);
         }
 
         private static int SeekAfter(byte[] buffer, byte[] bytes)
@@ -136,18 +153,22 @@ namespace Net.Chdk.Detectors.Software.Binary
             };
         }
 
-        protected abstract string Name { get; }
+        protected abstract string ProductName { get; }
 
         protected abstract string[] Strings { get; }
 
         protected abstract int StringCount { get; }
 
-        protected abstract Version GetVersion(string[] strings);
+        protected abstract Version GetProductVersion(string[] strings);
 
         protected abstract CultureInfo GetLanguage(string[] strings);
 
         protected abstract DateTime? GetCreationDate(string[] strings);
 
         protected abstract SoftwareCameraInfo GetCamera(string[] strings);
+
+        protected abstract string GetSourceName(string[] strings);
+
+        protected abstract string GetSourceChannel(string[] strings);
     }
 }
