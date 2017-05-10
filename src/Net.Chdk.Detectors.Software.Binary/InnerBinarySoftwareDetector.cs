@@ -25,7 +25,7 @@ namespace Net.Chdk.Detectors.Software.Binary
 
         public IEnumerable<byte[]> Bytes => bytes.Value;
 
-        public SoftwareInfo GetSoftware(byte[] buffer, int index)
+        public virtual SoftwareInfo GetSoftware(byte[] buffer, int index)
         {
             var strings = GetStrings(buffer, index, StringCount);
             if (strings == null)
@@ -82,15 +82,22 @@ namespace Net.Chdk.Detectors.Software.Binary
         {
             var strings = new string[length];
             for (var i = 0; i < length; i++)
-            {
-                int count;
-                for (count = 0; index + count < buffer.Length && buffer[index + count] != 0; count++) ;
-                if (index + count == buffer.Length)
-                    return null;
-                strings[i] = Encoding.ASCII.GetString(buffer, index, count);
-                index += count + 1;
-            }
+                strings[i] = GetString(buffer, ref index);
             return strings;
+        }
+
+        protected static string GetString(byte[] buffer, ref int index)
+        {
+            if (index >= buffer.Length)
+                return null;
+
+            int count;
+            for (count = 0; index + count < buffer.Length && buffer[index + count] != 0; count++) ;
+            if (index + count == buffer.Length)
+                return null;
+            var str = Encoding.ASCII.GetString(buffer, index, count);
+            index += count + 1;
+            return str;
         }
 
         protected static Version GetVersion(string str)
