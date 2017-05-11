@@ -83,8 +83,8 @@ namespace Net.Chdk.Detectors.Software.Binary
         private SoftwareSourceInfo GetSource(string[] strings, SoftwareProductInfo product)
         {
             var sourceName = GetSourceName(strings);
-            var channelName = GetSourceChannel(strings);
-            return SourceProvider.GetSource(product, sourceName, channelName);
+            var sources = SourceProvider.GetSources(product, sourceName);
+            return sources.FirstOrDefault();
         }
 
         private static int SeekAfter(byte[] buffer, byte[] bytes)
@@ -168,7 +168,5 @@ namespace Net.Chdk.Detectors.Software.Binary
         protected abstract SoftwareCameraInfo GetCamera(string[] strings);
 
         protected abstract string GetSourceName(string[] strings);
-
-        protected abstract string GetSourceChannel(string[] strings);
     }
 }
