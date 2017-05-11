@@ -44,7 +44,7 @@ namespace Net.Chdk.Detectors.Software.Binary
             if (camera == null)
                 return null;
 
-            var source = GetSource(strings);
+            var source = GetSource(strings, product);
             if (source == null)
                 return null;
 
@@ -80,11 +80,11 @@ namespace Net.Chdk.Detectors.Software.Binary
             };
         }
 
-        private SoftwareSourceInfo GetSource(string[] strings)
+        private SoftwareSourceInfo GetSource(string[] strings, SoftwareProductInfo product)
         {
             var sourceName = GetSourceName(strings);
             var channelName = GetSourceChannel(strings);
-            return SourceProvider.GetSource(ProductName, sourceName, channelName);
+            return SourceProvider.GetSource(product, sourceName, channelName);
         }
 
         private static int SeekAfter(byte[] buffer, byte[] bytes)
