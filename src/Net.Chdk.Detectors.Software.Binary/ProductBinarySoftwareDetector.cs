@@ -8,13 +8,13 @@ using System.Text;
 
 namespace Net.Chdk.Detectors.Software.Binary
 {
-    public abstract class InnerBinarySoftwareDetector : IInnerBinarySoftwareDetector
+    public abstract class ProductBinarySoftwareDetector : IProductBinarySoftwareDetector
     {
         private static Version Version => new Version("1.0");
 
         private ISourceProvider SourceProvider { get; }
 
-        protected InnerBinarySoftwareDetector(ISourceProvider sourceProvider)
+        protected ProductBinarySoftwareDetector(ISourceProvider sourceProvider)
         {
             SourceProvider = sourceProvider;
 
