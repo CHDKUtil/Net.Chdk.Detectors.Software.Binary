@@ -7,7 +7,7 @@
     <ProjectGuid>{18181475-991A-41F3-9BBE-F0F0916D8814}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Net.Chdk.Detectors.Software.Binary</RootNamespace>
+    <RootNamespace>Net.Chdk.Detectors.Software.Product</RootNamespace>
     <AssemblyName>Net.Chdk.Detectors.Software.Binary</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ProductBinarySoftwareDetector.cs" />
+    <Compile Include="ProductDetector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -77,6 +78,10 @@
     <ProjectReference Include="..\..\..\Net.Chdk.Model.Software\src\Net.Chdk.Model.Software\Net.Chdk.Model.Software.csproj">
       <Project>{7f492ad5-c9e5-4e13-9587-d0b88ba8d209}</Project>
       <Name>Net.Chdk.Model.Software</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Net.Chdk.Providers.Boot.Core\src\Net.Chdk.Providers.Boot.Core\Net.Chdk.Providers.Boot.Core.csproj">
+      <Project>{4E4FA15A-4A88-4CAF-A8E1-FC507177EAD4}</Project>
+      <Name>Net.Chdk.Providers.Boot.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Net.Chdk.Providers.Software.Core\src\Net.Chdk.Providers.Software.Core\Net.Chdk.Providers.Software.Core.csproj">
       <Project>{F763A515-BDB0-4088-8B23-15B02C094485}</Project>
