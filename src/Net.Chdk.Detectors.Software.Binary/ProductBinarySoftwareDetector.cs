@@ -40,20 +40,12 @@ namespace Net.Chdk.Detectors.Software.Binary
             if (product == null)
                 return null;
 
-            var camera = GetCamera(strings);
-            if (camera == null)
-                return null;
-
-            var source = GetSource(strings, product);
-            if (source == null)
-                return null;
-
             return new SoftwareInfo
             {
                 Version = Version,
                 Product = product,
-                Camera = camera,
-                Source = source,
+                Camera = GetCamera(strings),
+                Source = GetSource(strings, product),
             };
         }
 
@@ -63,20 +55,12 @@ namespace Net.Chdk.Detectors.Software.Binary
             if (version == null)
                 return null;
 
-            var language = GetLanguage(strings);
-            if (language == null)
-                return null;
-
-            var creationDate = GetCreationDate(strings);
-            if (creationDate == null)
-                return null;
-
             return new SoftwareProductInfo
             {
                 Name = ProductName,
                 Version = version,
-                Language = language,
-                Created = creationDate
+                Language = GetLanguage(strings),
+                Created = GetCreationDate(strings)
             };
         }
 
@@ -161,12 +145,12 @@ namespace Net.Chdk.Detectors.Software.Binary
 
         protected abstract Version GetProductVersion(string[] strings);
 
-        protected abstract CultureInfo GetLanguage(string[] strings);
+        protected virtual CultureInfo GetLanguage(string[] strings) => null;
 
-        protected abstract DateTime? GetCreationDate(string[] strings);
+        protected virtual DateTime? GetCreationDate(string[] strings) => null;
 
-        protected abstract SoftwareCameraInfo GetCamera(string[] strings);
+        protected virtual SoftwareCameraInfo GetCamera(string[] strings) => null;
 
-        protected abstract string GetSourceName(string[] strings);
+        protected virtual string GetSourceName(string[] strings) => ProductName;
     }
 }
