@@ -32,7 +32,7 @@ namespace Net.Chdk.Detectors.Software.Binary
 
         public virtual SoftwareInfo GetSoftware(byte[] buffer, int index)
         {
-            var strings = GetStrings(buffer, index, StringCount);
+            var strings = GetStrings(buffer, index, StringCount, SeparatorChar);
             if (strings == null)
                 return null;
 
@@ -79,21 +79,21 @@ namespace Net.Chdk.Detectors.Software.Binary
             return -1;
         }
 
-        private static string[] GetStrings(byte[] buffer, int index, int length)
+        private static string[] GetStrings(byte[] buffer, int index, int length, char separator)
         {
             var strings = new string[length];
             for (var i = 0; i < length; i++)
-                strings[i] = GetString(buffer, ref index);
+                strings[i] = GetString(buffer, ref index, separator);
             return strings;
         }
 
-        protected static string GetString(byte[] buffer, ref int index)
+        protected static string GetString(byte[] buffer, ref int index, char separator)
         {
             if (index >= buffer.Length)
                 return null;
 
             int count;
-            for (count = 0; index + count < buffer.Length && buffer[index + count] != 0; count++) ;
+            for (count = 0; index + count < buffer.Length && buffer[index + count] != separator; count++) ;
             if (index + count == buffer.Length)
                 return null;
             var str = Encoding.ASCII.GetString(buffer, index, count);
@@ -137,11 +137,20 @@ namespace Net.Chdk.Detectors.Software.Binary
             };
         }
 
+        protected static string TrimStart(string str, string prefix)
+        {
+            if (!str.StartsWith(prefix))
+                return null;
+            return str.Substring(prefix.Length);
+        }
+
         public abstract string ProductName { get; }
 
         protected abstract string[] Strings { get; }
 
         protected abstract int StringCount { get; }
+
+        protected virtual char SeparatorChar => '\0';
 
         protected abstract Version GetProductVersion(string[] strings);
 
