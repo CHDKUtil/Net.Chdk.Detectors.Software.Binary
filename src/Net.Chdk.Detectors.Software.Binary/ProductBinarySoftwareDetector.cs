@@ -158,7 +158,16 @@ namespace Net.Chdk.Detectors.Software.Binary
 
         protected virtual DateTime? GetCreationDate(string[] strings) => null;
 
-        protected virtual SoftwareCameraInfo GetCamera(string[] strings) => null;
+        protected virtual SoftwareCameraInfo GetCamera(string[] strings)
+        {
+            var platform = GetPlatform(strings);
+            var revision = GetRevision(strings);
+            return GetCamera(platform, revision);
+        }
+
+        protected virtual string GetPlatform(string[] strings) => null;
+
+        protected virtual string GetRevision(string[] strings) => null;
 
         protected virtual string GetSourceName(string[] strings) => ProductName;
     }
