@@ -12,9 +12,9 @@ namespace Net.Chdk.Detectors.Software.Product
     {
         private IBootProvider BootProvider { get; }
 
-        protected ProductDetector(IBootProvider bootProvider)
+        protected ProductDetector(IBootProviderResolver bootProviderResolver)
         {
-            BootProvider = bootProvider;
+            BootProvider = bootProviderResolver.GetBootProvider(CategoryName);
         }
 
         public SoftwareProductInfo GetProduct(CardInfo cardInfo)
@@ -32,6 +32,8 @@ namespace Net.Chdk.Detectors.Software.Product
                 Language = GetLanguage(rootPath),
             };
         }
+
+        public abstract string CategoryName { get; }
 
         protected abstract string ProductName { get; }
 
