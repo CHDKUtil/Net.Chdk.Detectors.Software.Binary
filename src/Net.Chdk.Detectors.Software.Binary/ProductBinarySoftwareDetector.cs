@@ -137,13 +137,6 @@ namespace Net.Chdk.Detectors.Software.Binary
             };
         }
 
-        protected static string TrimStart(string str, string prefix)
-        {
-            if (!str.StartsWith(prefix))
-                return null;
-            return str.Substring(prefix.Length);
-        }
-
         public abstract string ProductName { get; }
 
         protected abstract string[] Strings { get; }
