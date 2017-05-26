@@ -46,6 +46,7 @@ namespace Net.Chdk.Detectors.Software.Binary
                 Product = product,
                 Camera = GetCamera(strings),
                 Source = GetSource(strings, product),
+                Build = GetBuild(strings),
             };
         }
 
@@ -157,6 +158,8 @@ namespace Net.Chdk.Detectors.Software.Binary
             var revision = GetRevision(strings);
             return GetCamera(platform, revision);
         }
+
+        protected virtual SoftwareBuildInfo GetBuild(string[] strings) => null;
 
         protected virtual string GetPlatform(string[] strings) => null;
 
