@@ -52,14 +52,16 @@ namespace Net.Chdk.Detectors.Software.Binary
 
         private SoftwareProductInfo GetProduct(string[] strings)
         {
-            var version = GetProductVersion(strings);
-            if (version == null)
+            Version version;
+            string versionPrefix;
+            if (!GetProductVersion(strings, out version, out versionPrefix))
                 return null;
 
             return new SoftwareProductInfo
             {
                 Name = ProductName,
                 Version = version,
+                VersionPrefix = versionPrefix,
                 Language = GetLanguage(strings),
                 Created = GetCreationDate(strings)
             };
@@ -145,6 +147,13 @@ namespace Net.Chdk.Detectors.Software.Binary
         protected abstract int StringCount { get; }
 
         protected virtual char SeparatorChar => '\0';
+
+        protected virtual bool GetProductVersion(string[] strings, out Version version, out string versionPrefix)
+        {
+            version = GetProductVersion(strings);
+            versionPrefix = null;
+            return version != null;
+        }
 
         protected abstract Version GetProductVersion(string[] strings);
 
