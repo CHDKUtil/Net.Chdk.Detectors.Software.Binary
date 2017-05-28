@@ -1,7 +1,6 @@
 ﻿using Net.Chdk.Model.Software;
 using Net.Chdk.Providers.Software;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -18,17 +17,17 @@ namespace Net.Chdk.Detectors.Software.Binary
         {
             SourceProvider = sourceProvider;
 
-            bytes = new Lazy<IEnumerable<byte[]>>(GetBytes);
+            bytes = new Lazy<byte[]>(GetBytes);
         }
 
-        private readonly Lazy<IEnumerable<byte[]>> bytes;
+        private readonly Lazy<byte[]> bytes;
 
-        private IEnumerable<byte[]> GetBytes()
+        private byte[] GetBytes()
         {
-            return Strings.Select(s => Encoding.ASCII.GetBytes(s));
+            return Encoding.ASCII.GetBytes(String);
         }
 
-        public IEnumerable<byte[]> Bytes => bytes.Value;
+        public byte[] Bytes => bytes.Value;
 
         public virtual SoftwareInfo GetSoftware(byte[] buffer, int index)
         {
@@ -142,7 +141,7 @@ namespace Net.Chdk.Detectors.Software.Binary
 
         public abstract string ProductName { get; }
 
-        protected abstract string[] Strings { get; }
+        protected abstract string String { get; }
 
         protected abstract int StringCount { get; }
 
