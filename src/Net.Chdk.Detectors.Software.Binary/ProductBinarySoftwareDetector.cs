@@ -140,9 +140,9 @@ namespace Net.Chdk.Detectors.Software.Binary
             };
         }
 
-        public abstract string ProductName { get; }
+        public abstract string CategoryName { get; }
 
-        protected abstract string CategoryName { get; }
+        public abstract string ProductName { get; }
 
         protected abstract string String { get; }
 
