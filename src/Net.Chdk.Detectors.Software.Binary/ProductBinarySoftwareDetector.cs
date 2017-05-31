@@ -59,6 +59,7 @@ namespace Net.Chdk.Detectors.Software.Binary
             return new SoftwareProductInfo
             {
                 Name = ProductName,
+                Category = CategoryName,
                 Version = version,
                 VersionPrefix = versionPrefix,
                 Language = GetLanguage(strings),
@@ -140,6 +141,8 @@ namespace Net.Chdk.Detectors.Software.Binary
         }
 
         public abstract string ProductName { get; }
+
+        protected abstract string CategoryName { get; }
 
         protected abstract string String { get; }
 
