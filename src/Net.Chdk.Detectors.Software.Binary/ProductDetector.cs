@@ -27,7 +27,6 @@ namespace Net.Chdk.Detectors.Software.Product
             return new SoftwareProductInfo
             {
                 Name = ProductName,
-                Category = CategoryName,
                 Version = GetVersion(rootPath),
                 Created = GetCreationTime(cardInfo),
                 Language = GetLanguage(rootPath),

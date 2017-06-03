@@ -42,10 +42,19 @@ namespace Net.Chdk.Detectors.Software.Binary
             return new SoftwareInfo
             {
                 Version = Version,
+                Category = GetCategory(),
                 Product = product,
                 Camera = GetCamera(strings),
                 Source = GetSource(strings, product),
                 Build = GetBuild(strings),
+            };
+        }
+
+        private SoftwareCategoryInfo GetCategory()
+        {
+            return new SoftwareCategoryInfo
+            {
+                Name = CategoryName,
             };
         }
 
@@ -59,7 +68,6 @@ namespace Net.Chdk.Detectors.Software.Binary
             return new SoftwareProductInfo
             {
                 Name = ProductName,
-                Category = CategoryName,
                 Version = version,
                 VersionPrefix = versionPrefix,
                 Language = GetLanguage(strings),
