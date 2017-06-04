@@ -47,6 +47,7 @@ namespace Net.Chdk.Detectors.Software.Binary
                 Camera = GetCamera(strings),
                 Source = GetSource(strings, product),
                 Build = GetBuild(strings),
+                Compiler = GetCompiler(strings),
             };
         }
 
@@ -179,6 +180,8 @@ namespace Net.Chdk.Detectors.Software.Binary
         }
 
         protected virtual SoftwareBuildInfo GetBuild(string[] strings) => null;
+
+        protected virtual SoftwareCompilerInfo GetCompiler(string[] strings) => null;
 
         protected virtual string GetPlatform(string[] strings) => null;
 
