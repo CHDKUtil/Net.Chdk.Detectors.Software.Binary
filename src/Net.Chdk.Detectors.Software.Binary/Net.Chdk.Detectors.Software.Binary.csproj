@@ -62,6 +62,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ProductBinaryDetector.cs" />
+    <Compile Include="ProductBinaryModuleDetector.cs" />
     <Compile Include="ProductBinarySoftwareDetector.cs" />
     <Compile Include="ProductDetector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

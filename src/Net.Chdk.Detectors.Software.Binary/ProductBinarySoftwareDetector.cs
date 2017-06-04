@@ -3,11 +3,10 @@ using Net.Chdk.Providers.Software;
 using System;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 
-namespace Net.Chdk.Detectors.Software.Binary
+namespace Net.Chdk.Detectors.Software.Product
 {
-    public abstract class ProductBinarySoftwareDetector : IProductBinarySoftwareDetector
+    public abstract class ProductBinarySoftwareDetector : ProductBinaryDetector, IProductBinarySoftwareDetector
     {
         private static Version Version => new Version("1.0");
 
@@ -16,18 +15,7 @@ namespace Net.Chdk.Detectors.Software.Binary
         protected ProductBinarySoftwareDetector(ISourceProvider sourceProvider)
         {
             SourceProvider = sourceProvider;
-
-            bytes = new Lazy<byte[]>(GetBytes);
         }
-
-        private readonly Lazy<byte[]> bytes;
-
-        private byte[] GetBytes()
-        {
-            return Encoding.ASCII.GetBytes(String);
-        }
-
-        public byte[] Bytes => bytes.Value;
 
         public virtual SoftwareInfo GetSoftware(byte[] buffer, int index)
         {
@@ -83,36 +71,6 @@ namespace Net.Chdk.Detectors.Software.Binary
             return sources.FirstOrDefault();
         }
 
-        private static int SeekAfter(byte[] buffer, byte[] bytes)
-        {
-            for (var i = 0; i < buffer.Length - bytes.Length; i++)
-                if (Enumerable.Range(0, bytes.Length).All(j => buffer[i + j] == bytes[j]))
-                    return i + bytes.Length;
-            return -1;
-        }
-
-        private static string[] GetStrings(byte[] buffer, int index, int length, char separator)
-        {
-            var strings = new string[length];
-            for (var i = 0; i < length; i++)
-                strings[i] = GetString(buffer, ref index, separator);
-            return strings;
-        }
-
-        protected static string GetString(byte[] buffer, ref int index, char separator)
-        {
-            if (index >= buffer.Length)
-                return null;
-
-            int count;
-            for (count = 0; index + count < buffer.Length && buffer[index + count] != separator; count++) ;
-            if (index + count == buffer.Length)
-                return null;
-            var str = Encoding.ASCII.GetString(buffer, index, count);
-            index += count + 1;
-            return str;
-        }
-
         protected static Version GetVersion(string str)
         {
             if (str == null)
@@ -150,14 +108,6 @@ namespace Net.Chdk.Detectors.Software.Binary
         }
 
         public abstract string CategoryName { get; }
-
-        public abstract string ProductName { get; }
-
-        protected abstract string String { get; }
-
-        protected abstract int StringCount { get; }
-
-        protected virtual char SeparatorChar => '\0';
 
         protected virtual bool GetProductVersion(string[] strings, out Version version, out string versionPrefix)
         {
