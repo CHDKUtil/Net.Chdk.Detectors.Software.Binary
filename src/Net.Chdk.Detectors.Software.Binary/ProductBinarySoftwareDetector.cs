@@ -1,4 +1,5 @@
-﻿using Net.Chdk.Model.Software;
+﻿using Net.Chdk.Model.Category;
+using Net.Chdk.Model.Software;
 using Net.Chdk.Providers.Software;
 using System;
 using System.Globalization;
@@ -39,9 +40,9 @@ namespace Net.Chdk.Detectors.Software.Product
             };
         }
 
-        private SoftwareCategoryInfo GetCategory()
+        private CategoryInfo GetCategory()
         {
-            return new SoftwareCategoryInfo
+            return new CategoryInfo
             {
                 Name = CategoryName,
             };

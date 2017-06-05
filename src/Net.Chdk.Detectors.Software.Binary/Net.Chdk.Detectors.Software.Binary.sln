@@ -15,9 +15,12 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Net.Chdk.Shared", "..\..\..
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net.Chdk.Providers.Software.Core", "..\..\..\Net.Chdk.Providers.Software.Core\src\Net.Chdk.Providers.Software.Core\Net.Chdk.Providers.Software.Core.csproj", "{F763A515-BDB0-4088-8B23-15B02C094485}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net.Chdk.Model.Category", "..\..\..\Net.Chdk.Model.Category\src\Net.Chdk.Model.Category\Net.Chdk.Model.Category.csproj", "{732DF01F-2379-4244-ABA1-48BA99EA1883}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		..\..\..\Net.Chdk.Core\src\Net.Chdk.Shared\Net.Chdk.Shared.projitems*{18181475-991a-41f3-9bbe-f0f0916d8814}*SharedItemsImports = 4
+		..\..\..\Net.Chdk.Core\src\Net.Chdk.Shared\Net.Chdk.Shared.projitems*{732df01f-2379-4244-aba1-48ba99ea1883}*SharedItemsImports = 4
 		..\..\..\Net.Chdk.Core\src\Net.Chdk.Shared\Net.Chdk.Shared.projitems*{7f492ad5-c9e5-4e13-9587-d0b88ba8d209}*SharedItemsImports = 4
 		..\..\..\Net.Chdk.Core\src\Net.Chdk.Shared\Net.Chdk.Shared.projitems*{83c6a77c-3286-4f5f-b628-3b971097ad05}*SharedItemsImports = 13
 		..\..\..\Net.Chdk.Core\src\Net.Chdk.Shared\Net.Chdk.Shared.projitems*{a41d61fe-2fb8-4892-ac7d-ecee7e61c637}*SharedItemsImports = 4
@@ -71,6 +74,14 @@ Global
 		{F763A515-BDB0-4088-8B23-15B02C094485}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F763A515-BDB0-4088-8B23-15B02C094485}.Release|x64.ActiveCfg = Release|x64
 		{F763A515-BDB0-4088-8B23-15B02C094485}.Release|x64.Build.0 = Release|x64
+		{732DF01F-2379-4244-ABA1-48BA99EA1883}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{732DF01F-2379-4244-ABA1-48BA99EA1883}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{732DF01F-2379-4244-ABA1-48BA99EA1883}.Debug|x64.ActiveCfg = Debug|x64
+		{732DF01F-2379-4244-ABA1-48BA99EA1883}.Debug|x64.Build.0 = Debug|x64
+		{732DF01F-2379-4244-ABA1-48BA99EA1883}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{732DF01F-2379-4244-ABA1-48BA99EA1883}.Release|Any CPU.Build.0 = Release|Any CPU
+		{732DF01F-2379-4244-ABA1-48BA99EA1883}.Release|x64.ActiveCfg = Release|x64
+		{732DF01F-2379-4244-ABA1-48BA99EA1883}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
