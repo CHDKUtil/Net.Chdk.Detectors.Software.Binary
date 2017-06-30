@@ -52,7 +52,8 @@ namespace Net.Chdk.Detectors.Software.Product
         {
             Version version;
             string versionPrefix;
-            if (!GetProductVersion(strings, out version, out versionPrefix))
+            string versionSuffix;
+            if (!GetProductVersion(strings, out version, out versionPrefix, out versionSuffix))
                 return null;
 
             return new SoftwareProductInfo
@@ -60,6 +61,7 @@ namespace Net.Chdk.Detectors.Software.Product
                 Name = ProductName,
                 Version = version,
                 VersionPrefix = versionPrefix,
+                VersionSuffix = versionSuffix,
                 Language = GetLanguage(strings),
                 Created = GetCreationDate(strings)
             };
@@ -110,14 +112,15 @@ namespace Net.Chdk.Detectors.Software.Product
 
         public abstract string CategoryName { get; }
 
-        protected virtual bool GetProductVersion(string[] strings, out Version version, out string versionPrefix)
+        protected virtual bool GetProductVersion(string[] strings, out Version version, out string versionPrefix, out string versionSuffix)
         {
             version = GetProductVersion(strings);
             versionPrefix = null;
+            versionSuffix = null;
             return version != null;
         }
 
-        protected abstract Version GetProductVersion(string[] strings);
+        protected virtual Version GetProductVersion(string[] strings) => null;
 
         protected virtual CultureInfo GetLanguage(string[] strings) => null;
 
