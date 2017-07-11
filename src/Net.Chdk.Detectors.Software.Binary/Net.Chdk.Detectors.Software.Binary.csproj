@@ -52,8 +52,29 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Net.Chdk.Json, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Net.Chdk.Json.0.1.0-alpha\lib\netstandard1.0\Net.Chdk.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Net.Chdk.Model.Card, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Net.Chdk.Model.Card.0.1.0-alpha\lib\netstandard1.0\Net.Chdk.Model.Card.dll</HintPath>
+    </Reference>
+    <Reference Include="Net.Chdk.Model.Category, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Net.Chdk.Model.Category.0.1.0-alpha\lib\netstandard1.0\Net.Chdk.Model.Category.dll</HintPath>
+    </Reference>
+    <Reference Include="Net.Chdk.Model.Software, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Net.Chdk.Model.Software.0.1.0-alpha\lib\netstandard1.0\Net.Chdk.Model.Software.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -73,18 +94,6 @@
       <Project>{d385ab93-0db5-45aa-994a-5e4b671bef40}</Project>
       <Name>Net.Chdk.Detectors.Software.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Net.Chdk.Model.Card\src\Net.Chdk.Model.Card\Net.Chdk.Model.Card.csproj">
-      <Project>{a41d61fe-2fb8-4892-ac7d-ecee7e61c637}</Project>
-      <Name>Net.Chdk.Model.Card</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Net.Chdk.Model.Category\src\Net.Chdk.Model.Category\Net.Chdk.Model.Category.csproj">
-      <Project>{732DF01F-2379-4244-ABA1-48BA99EA1883}</Project>
-      <Name>Net.Chdk.Model.Category</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Net.Chdk.Model.Software\src\Net.Chdk.Model.Software\Net.Chdk.Model.Software.csproj">
-      <Project>{7f492ad5-c9e5-4e13-9587-d0b88ba8d209}</Project>
-      <Name>Net.Chdk.Model.Software</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Net.Chdk.Providers.Boot.Core\src\Net.Chdk.Providers.Boot.Core\Net.Chdk.Providers.Boot.Core.csproj">
       <Project>{4E4FA15A-4A88-4CAF-A8E1-FC507177EAD4}</Project>
       <Name>Net.Chdk.Providers.Boot.Core</Name>
@@ -93,6 +102,9 @@
       <Project>{F763A515-BDB0-4088-8B23-15B02C094485}</Project>
       <Name>Net.Chdk.Providers.Software.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="..\..\..\Net.Chdk.Core\src\Net.Chdk.Shared\Net.Chdk.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
