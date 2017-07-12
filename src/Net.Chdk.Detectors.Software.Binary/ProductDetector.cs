@@ -1,6 +1,7 @@
 ﻿using Net.Chdk.Model.Card;
 using Net.Chdk.Model.Software;
 using Net.Chdk.Providers.Boot;
+using Net.Chdk.Providers.Product;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -10,11 +11,13 @@ namespace Net.Chdk.Detectors.Software.Product
 {
     public abstract class ProductDetector : IProductDetector
     {
+        private IProductProvider ProductProvider { get; }
         private IBootProvider BootProvider { get; }
 
-        protected ProductDetector(IBootProviderResolver bootProviderResolver)
+        protected ProductDetector(IProductProvider productProvider, IBootProvider bootProvider)
         {
-            BootProvider = bootProviderResolver.GetBootProvider(CategoryName);
+            ProductProvider = productProvider;
+            BootProvider = bootProvider;
         }
 
         public SoftwareProductInfo GetProduct(CardInfo cardInfo)
@@ -33,7 +36,7 @@ namespace Net.Chdk.Detectors.Software.Product
             };
         }
 
-        public abstract string CategoryName { get; }
+        public string CategoryName => ProductProvider.GetCategoryName(ProductName);
 
         protected abstract string ProductName { get; }
 
@@ -56,7 +59,8 @@ namespace Net.Chdk.Detectors.Software.Product
         private DateTime GetCreationTime(CardInfo cardInfo)
         {
             var rootPath = cardInfo.GetRootPath();
-            var diskbootPath = Path.Combine(rootPath, BootProvider.FileName);
+            var fileName = BootProvider.GetFileName(CategoryName);
+            var diskbootPath = Path.Combine(rootPath, fileName);
             return File.GetCreationTimeUtc(diskbootPath);
         }
     }
