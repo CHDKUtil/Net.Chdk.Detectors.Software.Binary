@@ -1,5 +1,6 @@
 ﻿using Net.Chdk.Model.Category;
 using Net.Chdk.Model.Software;
+using Net.Chdk.Providers.Product;
 using Net.Chdk.Providers.Software;
 using System;
 using System.Globalization;
@@ -11,10 +12,12 @@ namespace Net.Chdk.Detectors.Software.Product
     {
         private static Version Version => new Version("1.0");
 
+        private IProductProvider ProductProvider { get; }
         private ISourceProvider SourceProvider { get; }
 
-        protected ProductBinarySoftwareDetector(ISourceProvider sourceProvider)
+        protected ProductBinarySoftwareDetector(IProductProvider productProvider, ISourceProvider sourceProvider)
         {
+            ProductProvider = productProvider;
             SourceProvider = sourceProvider;
         }
 
@@ -110,7 +113,7 @@ namespace Net.Chdk.Detectors.Software.Product
             };
         }
 
-        public abstract string CategoryName { get; }
+        public string CategoryName => ProductProvider.GetCategoryName(ProductName);
 
         protected virtual bool GetProductVersion(string[] strings, out Version version, out string versionPrefix, out string versionSuffix)
         {
