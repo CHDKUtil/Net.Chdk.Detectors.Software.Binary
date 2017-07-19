@@ -56,6 +56,18 @@ namespace Net.Chdk.Detectors.Software.Product
             return null;
         }
 
+        private static readonly Dictionary<string, CultureInfo> CultureInfos = new Dictionary<string, CultureInfo>();
+
+        protected static CultureInfo GetCultureInfo(string name)
+        {
+            if (!(CultureInfos.TryGetValue(name, out CultureInfo value)))
+            {
+                value = new CultureInfo(name);
+                CultureInfos.Add(name, value);
+            }
+            return value;
+        }
+
         private DateTime GetCreationTime(CardInfo cardInfo)
         {
             var rootPath = cardInfo.GetRootPath();
