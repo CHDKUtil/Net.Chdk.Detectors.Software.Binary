@@ -9,7 +9,7 @@ using System.IO;
 
 namespace Net.Chdk.Detectors.Software.Product
 {
-    public abstract class ProductDetector : IProductDetector
+    public abstract class ProductDetector : ProductDetectorBase, IProductDetector
     {
         private IProductProvider ProductProvider { get; }
         private IBootProvider BootProvider { get; }
@@ -54,18 +54,6 @@ namespace Net.Chdk.Detectors.Software.Product
                     return getValue(kvp.Value);
             }
             return null;
-        }
-
-        private static readonly Dictionary<string, CultureInfo> CultureInfos = new Dictionary<string, CultureInfo>();
-
-        protected static CultureInfo GetCultureInfo(string name)
-        {
-            if (!(CultureInfos.TryGetValue(name, out CultureInfo value)))
-            {
-                value = new CultureInfo(name);
-                CultureInfos.Add(name, value);
-            }
-            return value;
         }
 
         private DateTime GetCreationTime(CardInfo cardInfo)

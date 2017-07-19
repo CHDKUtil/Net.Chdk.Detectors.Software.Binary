@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Net.Chdk.Detectors.Software.Product
 {
-    public abstract class ProductBinaryDetector
+    public abstract class ProductBinaryDetector : ProductDetectorBase
     {
         protected ProductBinaryDetector()
         {
