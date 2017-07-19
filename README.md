@@ -1,1 +1,2 @@
-# Net.Chdk.Detectors.Software.Binary
+# Net.Chdk.Detectors.Software.Product
+CHIMP software product detectors
