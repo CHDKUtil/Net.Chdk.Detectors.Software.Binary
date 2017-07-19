@@ -35,6 +35,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Net.Chdk.Core" Version="0.3.0-alpha" />
     <PackageReference Include="Net.Chdk.Detectors.Software.Core" Version="0.1.0-alpha" />
     <PackageReference Include="Net.Chdk.Providers.Boot.Core" Version="0.1.0-alpha" />
     <PackageReference Include="Net.Chdk.Providers.Product.Core" Version="0.1.0-alpha" />
