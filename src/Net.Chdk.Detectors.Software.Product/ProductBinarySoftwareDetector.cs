@@ -53,10 +53,7 @@ namespace Net.Chdk.Detectors.Software.Product
 
         private SoftwareProductInfo GetProduct(string[] strings)
         {
-            Version version;
-            string versionPrefix;
-            string versionSuffix;
-            if (!GetProductVersion(strings, out version, out versionPrefix, out versionSuffix))
+            if (!GetProductVersion(strings, out Version version, out string versionPrefix, out string versionSuffix))
                 return null;
 
             return new SoftwareProductInfo
@@ -82,8 +79,7 @@ namespace Net.Chdk.Detectors.Software.Product
             if (str == null)
                 return null;
 
-            Version version;
-            if (!Version.TryParse(str, out version))
+            if (!Version.TryParse(str, out Version version))
                 return null;
 
             return version;
@@ -94,8 +90,7 @@ namespace Net.Chdk.Detectors.Software.Product
             if (str == null)
                 return null;
 
-            DateTime creationDate;
-            if (!DateTime.TryParse(str, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out creationDate))
+            if (!DateTime.TryParse(str, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out DateTime creationDate))
                 return null;
 
             return creationDate;
